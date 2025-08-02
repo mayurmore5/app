@@ -9,18 +9,7 @@ const TimerScreen = () => {
   const timerRef = useRef<NodeJS.Timeout | null |number>(null);
   const countdownRef = useRef<NodeJS.Timeout | null|number>(null);
   const [city, setCity] = useState('chennai');
-  const fetchData=async()=>{
-      try{
-          const response= await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=us&key=HQTRQX5ZJUFGZWMSCYA8V2X8W&contentType=json`);
-          const json=await response.json();
-          console.log(json.days[0].temp);
-      }
-      catch (error) {
-      console.error('Fetch error:', error);
-    } finally {
-      setloading(false);
-    }
-  }
+  
   const handleStartTimer = () => {
     if (timerRef.current) return; // Prevent multiple intervals
     timerRef.current = setInterval(() => {
@@ -66,10 +55,6 @@ const TimerScreen = () => {
         style={styles.btn1}
         onPress={() => setTTime(prev => prev + 1)}>
         <Text style={styles.txt}>Add Time</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.btn} onPress={fetchData}>
-        <Text style={styles.txt}>FetchData</Text>
       </TouchableOpacity>
     </View>
   );
